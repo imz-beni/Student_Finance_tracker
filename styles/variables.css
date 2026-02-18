@@ -1,0 +1,97 @@
+:root {
+  /* =========================
+     Color Palette (Light Mode - Modern Minimalist)
+     ========================= */
+
+  /* Primary: Vivid Indigo */
+  --color-primary-hue: 245;
+  --color-primary: hsl(245, 80%, 60%);
+  --color-primary-dark: hsl(245, 80%, 50%);
+  --color-primary-soft: hsl(245, 100%, 96%);
+  /* Very light tint */
+
+  /* Secondary: Emerald */
+  --color-secondary: hsl(150, 60%, 45%);
+  --color-secondary-soft: hsl(150, 50%, 95%);
+
+  /* Accent: Rose */
+  --color-accent: hsl(340, 85%, 60%);
+  --color-accent-soft: hsl(340, 100%, 96%);
+
+  /* Neutrals - Clean Slate Theme */
+  --color-white: #ffffff;
+
+  /* Backgrounds */
+  --color-bg-base: #f8fafc;
+  /* Slate 50 (Page BG) */
+  --color-bg-surface: #ffffff;
+  /* White (Cards) */
+
+  /* Borders */
+  --color-border: #e2e8f0;
+  /* Slate 200 */
+
+  /* Text */
+  --text-main: #0f172a;
+  /* Slate 900 */
+  --text-body: #334155;
+  /* Slate 700 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+  --text-light: #94a3b8;
+  /* Slate 400 */
+  --text-on-primary: #ffffff;
+
+  /* =========================
+     Typography
+     ========================= */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 800;
+
+  /* =========================
+     Layout & Spacing
+     ========================= */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  --sidebar-width: 280px;
+  --header-height-mobile: 70px;
+  --bottom-nav-height: 80px;
+  --max-width-content: 1400px;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+
+  /* =========================
+     Effects
+     ========================= */
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.025);
+  /* Cloud-like */
+  --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.01);
+
+  /* Soft Color Shadows */
+  --shadow-blue: 0 10px 15px -3px hsla(245, 80%, 60%, 0.15);
+
+  --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
