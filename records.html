@@ -11,101 +11,88 @@
 
 <body>
     <div id="app-layout">
-        <aside class="sidebar">
+        <!-- Sidebar Navigation (Desktop) -->
+        <div class="sidebar">
             <a href="index.html" class="logo-area">
-                <div class="logo-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                </div>
+                <div class="logo-icon">💰</div>
                 <span class="logo-text">FinanceTracker</span>
             </a>
-            <nav class="nav-links">
-                <a href="index.html" class="nav-item">Dashboard/Stats</a>
-                <a href="records.html" class="nav-item active">Records</a>
-                <a href="form.html" class="nav-item">Add/Edit</a>
-                <a href="settings.html" class="nav-item">Settings</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">📊 Dashboard/Stats</a>
+                <a href="records.html" class="nav-item active">📋 Records</a>
+                <a href="form.html" class="nav-item">➕ Add/Edit</a>
+                <a href="settings.html" class="nav-item">⚙️ Settings</a>
                 <div class="spacer"></div>
-                <a href="about.html" class="nav-item">About</a>
-            </nav>
-        </aside>
+                <a href="about.html" class="nav-item">ℹ️ About</a>
+            </div>
+        </div>
 
-        <main class="main-content">
-            <header class="mobile-header">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header for Mobile -->
+            <div class="mobile-header">
                 <div class="logo-area logo-area-mobile">
-                    <div class="logo-icon logo-icon-mobile">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="3">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                        </svg>
-                    </div>
+                    <div class="logo-icon logo-icon-mobile">💰</div>
                     <span class="logo-text logo-text-mobile">FinanceTracker</span>
                 </div>
                 <a href="form.html" class="btn btn-primary btn-mobile-header">+</a>
-            </header>
+            </div>
 
+            <!-- Page Title and Filters -->
             <div class="page-header">
                 <div>
                     <h1 class="text-3xl font-bold mb-2">Transaction Records</h1>
                     <p class="text-muted">View and manage your financial history.</p>
                 </div>
                 <div class="flex gap-2">
-                    <button class="btn btn-secondary btn-icon" title="Filter">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2">
-                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                        </svg>
-                    </button>
                     <a href="form.html" class="btn btn-primary shadow-blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                        New Record
+                        + New Record
                     </a>
                 </div>
             </div>
 
-            <section class="card mb-8">
-                <form class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Search and Filter Controls -->
+            <div class="card mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Search Input -->
                     <div class="form-group mb-0 md:col-span-2">
                         <label class="form-label">Search</label>
                         <div class="search-wrapper">
-                            <input type="text" class="form-input search-input-icon" placeholder="Search description...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
+                            <input type="text" id="search-input" class="form-input search-input-icon"
+                                placeholder="🔍 Search description...">
                         </div>
                     </div>
 
+                    <!-- Category Filter -->
                     <div class="form-group mb-0">
-                        <label class="form-label">Category</label>
-                        <select class="form-select">
+                        <label class="form-label">Category Filter</label>
+                        <select id="category-filter" class="form-select">
                             <option value="">All Categories</option>
-                            <option value="food">🍕 Food</option>
-                            <option value="transport">🚌 Transport</option>
-                            <option value="utilities">💡 Utilities</option>
-                            <option value="entertainment">🎬 Entertainment</option>
-                            <option value="income">💰 Income</option>
+                            <option value="Food">🍕 Food</option>
+                            <option value="Transport">🚌 Transport</option>
+                            <option value="Utilities">💡 Utilities</option>
+                            <option value="Entertainment">🎬 Entertainment</option>
+                            <option value="Education">📚 Education</option>
+                            <option value="Income">💰 Income</option>
                         </select>
                     </div>
 
+                    <!-- Sort Selection -->
                     <div class="form-group mb-0">
                         <label class="form-label">Sort By</label>
-                        <select class="form-select">
+                        <select id="sort-select" class="form-select">
                             <option value="date-desc">Newest First</option>
                             <option value="date-asc">Oldest First</option>
-                            <option value="amount-desc">Highest Amount</option>
-                            <option value="amount-asc">Lowest Amount</option>
+                            <option value="amount-desc">Amount: High to Low</option>
+                            <option value="amount-asc">Amount: Low to High</option>
+                            <option value="category-asc">Category: A to Z</option>
+                            <option value="category-desc">Category: Z to A</option>
                         </select>
                     </div>
-                </form>
-            </section>
+                </div>
+            </div>
 
+            <!-- Transaction Table -->
             <div class="table-container mb-6">
                 <table class="table">
                     <thead>
@@ -117,203 +104,67 @@
                             <th class="text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="records-table-body">
+                        <!-- Content will be populated by JavaScript -->
                         <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="btn-icon bg-surface border border-border icon-32">🍕</div>
-                                    <div>
-                                        <strong class="text-main block text-sm">Lunch at Cafeteria</strong>
-                                        <span class="text-xs text-muted">Visa •••• 1234</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-secondary">Food</span></td>
-                            <td class="text-muted text-sm">Oct 24, 2023</td>
-                            <td class="text-right font-bold text-main">-$12.50</td>
-                            <td class="text-right">
-                                <button class="btn-icon text-muted hover:text-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="btn-icon bg-surface border border-border icon-32">💰</div>
-                                    <div>
-                                        <strong class="text-main block text-sm">Freelance Project</strong>
-                                        <span class="text-xs text-muted">Direct Deposit</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-primary">Income</span></td>
-                            <td class="text-muted text-sm">Oct 23, 2023</td>
-                            <td class="text-right font-bold text-success-custom">+$500.00</td>
-                            <td class="text-right">
-                                <button class="btn-icon text-muted hover:text-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="btn-icon bg-surface border border-border icon-32">🚌</div>
-                                    <div>
-                                        <strong class="text-main block text-sm">Monthly Bus Pass</strong>
-                                        <span class="text-xs text-muted">Student Discount</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-accent">Transport</span></td>
-                            <td class="text-muted text-sm">Oct 21, 2023</td>
-                            <td class="text-right font-bold text-main">-$45.00</td>
-                            <td class="text-right">
-                                <button class="btn-icon text-muted hover:text-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="btn-icon bg-surface border border-border icon-32">📚</div>
-                                    <div>
-                                        <strong class="text-main block text-sm">Textbooks (Calculus)</strong>
-                                        <span class="text-xs text-muted">Bookstore</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-secondary">Education</span></td>
-                            <td class="text-muted text-sm">Oct 20, 2023</td>
-                            <td class="text-right font-bold text-main">-$120.00</td>
-                            <td class="text-right">
-                                <button class="btn-icon text-muted hover:text-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="btn-icon bg-surface border border-border icon-32">🎬</div>
-                                    <div>
-                                        <strong class="text-main block text-sm">Cinema Tickets</strong>
-                                        <span class="text-xs text-muted">Weekend</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-accent">Entertainment</span></td>
-                            <td class="text-muted text-sm">Oct 18, 2023</td>
-                            <td class="text-right font-bold text-main">-$24.00</td>
-                            <td class="text-right">
-                                <button class="btn-icon text-muted hover:text-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </td>
+                            <td colspan="5" class="text-center text-muted p-8">Loading records...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination -->
+            <!-- Pagination Controls (Placeholder) -->
             <div
                 class="flex justify-between items-center bg-surface p-4 rounded-xl border border-transparent shadow-sm">
-                <span class="text-sm text-muted">Showing <strong>1-5</strong> of <strong>24</strong> records</span>
+                <span class="text-sm text-muted">Showing results...</span>
                 <div class="flex gap-2">
                     <button class="btn btn-secondary py-1 px-3 text-xs" disabled>Previous</button>
                     <button class="btn btn-primary py-1 px-3 text-xs">1</button>
-                    <button class="btn btn-secondary py-1 px-3 text-xs">2</button>
-                    <button class="btn btn-secondary py-1 px-3 text-xs">3</button>
                     <button class="btn btn-secondary py-1 px-3 text-xs">Next</button>
                 </div>
             </div>
 
-        </main>
+            <!-- Debug Info Area (Hidden by default) -->
+            <!-- Toggle by pressing Ctrl + Shift + D -->
+            <div id="diagnostics-panel" class="card"
+                style="display: none; border: 1px dashed var(--color-accent); margin-top: 2rem;">
+                <h3 class="text-sm font-bold text-accent mb-2">Debug Info: Raw Storage Data</h3>
+                <pre id="raw-storage-data"
+                    style="font-size: 0.7rem; background: var(--color-bg-base); padding: 1rem; border-radius: 8px; overflow: auto; max-height: 200px; color: var(--color-main);"></pre>
+                <div class="flex gap-2 mt-2">
+                    <button id="btn-show-data" class="btn btn-secondary"
+                        style="padding: 4px 8px; font-size: 0.7rem;">Refresh Data</button>
+                    <button id="btn-clear-storage" class="btn btn-secondary"
+                        style="padding: 4px 8px; font-size: 0.7rem; color: var(--color-danger);">Clear All
+                        Records</button>
+                </div>
+            </div>
 
-        <nav class="bottom-nav">
+        </div>
+
+        <!-- Navigation Bar for Mobile -->
+        <div class="bottom-nav">
             <a href="index.html" class="nav-item-mobile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="14" width="7" height="7"></rect>
-                    <rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-                <span>Dash</span>
+                📊 <span>Dash</span>
             </a>
             <a href="records.html" class="nav-item-mobile active">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <line x1="8" y1="6" x2="21" y2="6"></line>
-                    <line x1="8" y1="12" x2="21" y2="12"></line>
-                    <line x1="8" y1="18" x2="21" y2="18"></line>
-                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                </svg>
-                <span>Records</span>
+                📋 <span>Records</span>
             </a>
             <a href="form.html" class="nav-item-mobile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                </svg>
-                <span>Form</span>
+                ➕ <span>Form</span>
             </a>
             <a href="settings.html" class="nav-item-mobile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path
-                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                    </path>
-                </svg>
-                <span>Settings</span>
+                ⚙️ <span>Settings</span>
             </a>
             <a href="about.html" class="nav-item-mobile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg>
-                <span>About</span>
+                ℹ️ <span>About</span>
             </a>
-        </nav>
+        </div>
     </div>
+
+    <!-- Check if the app is working -->
+    <script src="./scripts/loader-check.js"></script>
+    <script type="module" src="./scripts/app.js"></script>
 </body>
 
 </html>
