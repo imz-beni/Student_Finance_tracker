@@ -2,7 +2,7 @@
  * Student Finance Tracker - Storage Logic
  */
 
-import { STORAGE_KEY } from './state.js';
+import { STORAGE_KEY, SETTINGS_KEY, DEFAULT_SETTINGS } from './state.js';
 
 /**
  * Get all records from LocalStorage
@@ -67,5 +67,33 @@ export function deleteRecord(id) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
     } catch (e) {
         console.error('Failed to delete record from storage:', e);
+    }
+}
+
+/**
+ * Get settings from LocalStorage
+ * @returns {Object} Settings object
+ */
+export function getSettings() {
+    try {
+        const data = localStorage.getItem(SETTINGS_KEY);
+        return data ? { ...DEFAULT_SETTINGS, ...JSON.parse(data) } : DEFAULT_SETTINGS;
+    } catch (e) {
+        console.error('Failed to parse settings:', e);
+        return DEFAULT_SETTINGS;
+    }
+}
+
+/**
+ * Save settings to LocalStorage
+ * @param {Object} settings 
+ */
+export function saveSettings(settings) {
+    try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        return true;
+    } catch (e) {
+        console.error('Failed to save settings:', e);
+        return false;
     }
 }

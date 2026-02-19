@@ -2,10 +2,10 @@
  * Student Finance Tracker - UI & App Entry Point
  */
 
-import { getRecords, saveRecord, updateRecord, deleteRecord } from './storage.js';
+import { getRecords, saveRecord, updateRecord, deleteRecord, getSettings, saveSettings } from './storage.js';
 import { validateRecord } from './validators.js';
 import { searchAndSortRecords } from './search.js';
-import { STORAGE_KEY } from './state.js';
+import { STORAGE_KEY, EXCHANGE_RATES } from './state.js';
 
 // --- CONFIGURATION & ERRORS ---
 
@@ -19,17 +19,42 @@ window.appInitialized = true;
 // --- UI FORMATTING & RENDERING ---
 
 /**
- * Format number as currency
+ * Format number as currency based on settings
  * @param {any} amount 
  * @returns {string}
  */
 export function formatCurrency(amount) {
     const num = parseFloat(amount);
     if (isNaN(num)) return '$0.00';
-    return new Intl.NumberFormat('en-US', {
+
+    const settings = getSettings();
+    const rate = EXCHANGE_RATES[settings.currency] || 1;
+    const converted = num * rate;
+
+    const locales = {
+        USD: 'en-US',
+        EUR: 'de-DE',
+        GBP: 'en-GB',
+        JPY: 'ja-JP',
+        RWF: 'rw-RW'
+    };
+
+    return new Intl.NumberFormat(locales[settings.currency] || 'en-US', {
         style: 'currency',
-        currency: 'USD'
-    }).format(num);
+        currency: settings.currency || 'USD'
+    }).format(converted);
+}
+
+/**
+ * Apply theme to the whole document
+ * @param {string} theme 'dark' or 'light'
+ */
+export function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+    }
 }
 
 /**
@@ -260,18 +285,114 @@ function handleTableActions(e) {
 }
 
 function initSettingsPage() {
-    document.querySelectorAll('.toggle-switch').forEach(toggle => {
-        toggle.addEventListener('click', () => toggle.classList.toggle('active'));
-    });
+    const settings = getSettings();
+
+    // Initialize UI state
+    const themeToggle = document.getElementById('theme-toggle');
+    const currencySelect = document.getElementById('currency-select');
+
+    if (themeToggle) {
+        if (settings.theme === 'dark') themeToggle.classList.add('active');
+        else themeToggle.classList.remove('active');
+
+        themeToggle.addEventListener('click', () => {
+            themeToggle.classList.toggle('active');
+            const newTheme = themeToggle.classList.contains('active') ? 'dark' : 'light';
+            const s = getSettings();
+            s.theme = newTheme;
+            saveSettings(s);
+            applyTheme(newTheme);
+        });
+    }
+
+    if (currencySelect) {
+        currencySelect.value = settings.currency;
+        currencySelect.addEventListener('change', () => {
+            const s = getSettings();
+            s.currency = currencySelect.value;
+            saveSettings(s);
+        });
+    }
+
+    // Profile
     document.getElementById('profile-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
         alert('Profile saved!');
+    });
+
+    // --- DATA MANAGEMENT ---
+
+    // Export
+    document.getElementById('export-btn')?.addEventListener('click', () => {
+        const data = {
+            records: getRecords(),
+            settings: getSettings(),
+            exportDate: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `finance_backup_${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // Import
+    const importInput = document.getElementById('import-input');
+    const importBtn = document.getElementById('import-btn');
+
+    importBtn?.addEventListener('click', () => importInput?.click());
+
+    importInput?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+
+                // Basic Validation
+                if (!data.records || !Array.isArray(data.records)) {
+                    throw new Error('Invalid format: Missing records array.');
+                }
+
+                if (confirm(`Import ${data.records.length} records? This will merge with your current data.`)) {
+                    const currentRecords = getRecords();
+                    // Merge and avoid exact duplicate IDs if possible (though IDs are timestamps)
+                    const merged = [...currentRecords, ...data.records];
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+
+                    if (data.settings) {
+                        saveSettings(data.settings);
+                    }
+
+                    alert('Import Successful!');
+                    location.reload();
+                }
+            } catch (err) {
+                alert('Import Failed: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    // Reset
+    document.getElementById('reset-btn')?.addEventListener('click', () => {
+        if (confirm('DANGER: This will delete ALL your data and reset settings. Continue?')) {
+            localStorage.clear();
+            location.reload();
+        }
     });
 }
 
 // --- APP INITIALIZATION ---
 
 document.addEventListener('DOMContentLoaded', () => {
+    const settings = getSettings();
+    applyTheme(settings.theme);
+
     // Form Page
     const form = document.getElementById('transaction-form');
     if (form) {
