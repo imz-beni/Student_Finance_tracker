@@ -35,7 +35,7 @@ body {
     text-rendering: optimizeSpeed;
     line-height: 1.5;
     font-family: var(--font-sans);
-    background-color: var(--bg-body);
+    background-color: var(--color-bg-base);
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
 }
