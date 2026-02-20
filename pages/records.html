@@ -10,9 +10,11 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+
     <div id="app-layout">
         <!-- Sidebar Navigation (Desktop) -->
-        <div class="sidebar">
+        <nav class="sidebar" aria-label="Main Navigation">
             <a href="index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
                 <span class="logo-text">FinanceTracker</span>
@@ -25,21 +27,21 @@
                 <div class="spacer"></div>
                 <a href="about.html" class="nav-item">ℹ️ About</a>
             </div>
-        </div>
+        </nav>
 
         <!-- Main Content Area -->
-        <div class="main-content">
+        <main id="main-content" class="main-content">
             <!-- Header for Mobile -->
-            <div class="mobile-header">
+            <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
                     <span class="logo-text logo-text-mobile">FinanceTracker</span>
                 </div>
-                <a href="form.html" class="btn btn-primary btn-mobile-header">+</a>
-            </div>
+                <a href="form.html" class="btn btn-primary btn-mobile-header" aria-label="Add new record">+</a>
+            </header>
 
             <!-- Page Title and Filters -->
-            <div class="page-header">
+            <header class="page-header">
                 <div>
                     <h1 class="text-3xl font-bold mb-2">Transaction Records</h1>
                     <p class="text-muted">View and manage your financial history.</p>
@@ -49,10 +51,11 @@
                         + New Record
                     </a>
                 </div>
-            </div>
+            </header>
 
             <!-- Search and Filter Controls -->
-            <div class="card mb-8">
+            <section class="card mb-8" aria-labelledby="filters-title">
+                <h2 id="filters-title" class="visually-hidden">Filter and Sort Transactions</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <!-- Search Input -->
                     <div class="form-group mb-0 md:col-span-2">
@@ -90,18 +93,19 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Transaction Table -->
-            <div class="table-container mb-6">
+            <section class="table-container mb-6">
                 <table class="table">
+                    <caption>Financial Transaction History</caption>
                     <thead>
                         <tr>
-                            <th>Transaction</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th class="text-right">Amount</th>
-                            <th class="text-right">Actions</th>
+                            <th scope="col">Transaction</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Date</th>
+                            <th scope="col" class="text-right">Amount</th>
+                            <th scope="col" class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="records-table-body">
@@ -111,18 +115,19 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </section>
 
             <!-- Pagination Controls (Placeholder) -->
-            <div
+            <section
                 class="flex justify-between items-center bg-surface p-4 rounded-xl border border-transparent shadow-sm">
                 <span class="text-sm text-muted">Showing results...</span>
-                <div class="flex gap-2">
-                    <button class="btn btn-secondary py-1 px-3 text-xs" disabled>Previous</button>
-                    <button class="btn btn-primary py-1 px-3 text-xs">1</button>
-                    <button class="btn btn-secondary py-1 px-3 text-xs">Next</button>
-                </div>
-            </div>
+                <nav class="flex gap-2" aria-label="Pagination">
+                    <button class="btn btn-secondary py-1 px-3 text-xs" disabled
+                        aria-label="Previous Page">Previous</button>
+                    <button class="btn btn-primary py-1 px-3 text-xs" aria-label="Page 1">1</button>
+                    <button class="btn btn-secondary py-1 px-3 text-xs" aria-label="Next Page">Next</button>
+                </nav>
+            </section>
 
             <!-- Debug Info Area (Hidden by default) -->
             <!-- Toggle by pressing Ctrl + Shift + D -->
@@ -138,12 +143,12 @@
                         style="padding: 4px 8px; font-size: 0.7rem; color: var(--color-danger);">Clear All
                         Records</button>
                 </div>
-            </div>
+                </section>
 
-        </div>
+        </main>
 
         <!-- Navigation Bar for Mobile -->
-        <div class="bottom-nav">
+        <nav class="bottom-nav" aria-label="Mobile Navigation">
             <a href="../index.html" class="nav-item-mobile">
                 📊 <span>Dash</span>
             </a>
@@ -159,7 +164,12 @@
             <a href="about.html" class="nav-item-mobile">
                 ℹ️ <span>About</span>
             </a>
-        </div>
+        </nav>
+
+        <!-- ARIA Live Regions -->
+        <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
+        <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
+
     </div>
 
     <script type="module" src="../scripts/ui.js"></script>

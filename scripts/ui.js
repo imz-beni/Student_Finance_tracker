@@ -4,7 +4,7 @@
 
 import { getRecords, saveRecord, updateRecord, deleteRecord, getSettings, saveSettings } from './storage.js';
 import { validateRecord } from './validators.js';
-import { searchAndSortRecords } from './search.js';
+import { searchAndSortRecords, compileRegex } from './search.js';
 import { STORAGE_KEY, EXCHANGE_RATES } from './state.js';
 
 // --- CONFIGURATION & ERRORS ---
@@ -12,7 +12,36 @@ import { STORAGE_KEY, EXCHANGE_RATES } from './state.js';
 // Global Error Handler
 window.onerror = function (message, source, lineno, colno, error) {
     console.error(`Error: ${message}\nLine: ${lineno}`, error);
+    announce(`A system error occurred: ${message}`, 'assertive');
 };
+
+/**
+ * Announces a message via ARIA live regions and optionally injects it into a form
+ * @param {string} message 
+ * @param {string} type 'polite' or 'assertive'
+ */
+export function announce(message, type = 'polite') {
+    const regionId = type === 'assertive' ? 'live-region-assertive' : 'live-region-polite';
+    const region = document.getElementById(regionId);
+    if (region) {
+        region.textContent = ''; // Clear first to force announcement
+        setTimeout(() => { region.textContent = message; }, 50);
+    }
+
+    // Also inject inline error message if we are on the form page
+    const form = document.getElementById('transaction-form');
+    if (form) {
+        let errorContainer = document.getElementById('form-error-message');
+        if (!errorContainer) {
+            errorContainer = document.createElement('div');
+            errorContainer.id = 'form-error-message';
+            errorContainer.className = 'text-danger text-sm mt-4 p-3 bg-red-50 rounded-lg border border-red-200';
+            form.prepend(errorContainer);
+        }
+        errorContainer.textContent = message;
+        errorContainer.className = type === 'assertive' ? 'text-danger text-sm mt-4 p-3 bg-red-50 rounded-lg border border-red-200' : 'text-primary text-sm mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200';
+    }
+}
 
 window.appInitialized = true;
 
@@ -58,6 +87,17 @@ export function applyTheme(theme) {
 }
 
 /**
+ * Highlights matches in text using a regex
+ * @param {string} text 
+ * @param {RegExp} re 
+ * @returns {string}
+ */
+export function highlight(text, re) {
+    if (!re || !text) return text;
+    return text.replace(re, m => `<mark class="search-highlight">${m}</mark>`);
+}
+
+/**
  * Render the records table with filtering and sorting
  */
 export function renderTable() {
@@ -70,6 +110,7 @@ export function renderTable() {
 
     const allRecords = getRecords();
     const filteredRecords = searchAndSortRecords(allRecords, { query, category, sortType });
+    const searchRe = compileRegex(query, 'gi'); // Global for multiple matches
 
     tbody.innerHTML = '';
     if (filteredRecords.length === 0) {
@@ -97,8 +138,8 @@ export function renderTable() {
         tr.innerHTML = `
             <td>
                 <div class="flex items-center gap-3">
-                    <div class="btn-icon bg-surface border border-border icon-32">${icon}</div>
-                    <div><strong class="text-main block text-sm record-desc">${record.description}</strong></div>
+                    <div class="btn-icon bg-surface border border-border icon-32" aria-hidden="true">${icon}</div>
+                    <div><strong class="text-main block text-sm record-desc">${highlight(record.description, searchRe)}</strong></div>
                 </div>
             </td>
             <td><span class="badge badge-secondary record-cat">${catName}</span></td>
@@ -192,6 +233,17 @@ function updateBudgetLimits(records) {
 
     updateEl('monthly-budget-spent', 'monthly-budget-badge', 'monthly-budget-fill', monthlySpent, 1000);
     updateEl('entertainment-budget-spent', 'entertainment-budget-badge', 'entertainment-budget-fill', entSpent, 200, true);
+
+    // ARIA Live Budget Alerts
+    if (monthlySpent > 1000) {
+        announce('Alert: You have exceeded your monthly budget limit of $1,000!', 'assertive');
+    } else if (monthlySpent > 800) {
+        announce('Budget Update: You have used over 800 of your monthly budget.', 'polite');
+    }
+
+    if (entSpent > 200) {
+        announce('Alert: Entertainment budget limit exceeded!', 'assertive');
+    }
 }
 
 export function enableInlineEdit(tr, record) {
@@ -247,8 +299,8 @@ function handleFormSubmit(e) {
 
     if (validateRecord(data)) {
         if (saveRecord(data)) {
-            alert('Record Saved!');
-            window.location.href = 'records.html';
+            announce('Success: Record Saved!', 'polite');
+            setTimeout(() => { window.location.href = 'records.html'; }, 1000);
         }
     }
 }
@@ -317,7 +369,7 @@ function initSettingsPage() {
     // Profile
     document.getElementById('profile-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('Profile saved!');
+        announce('Profile updated successfully!', 'polite');
     });
 
     // --- DATA MANAGEMENT ---
@@ -360,7 +412,6 @@ function initSettingsPage() {
 
                 if (confirm(`Import ${data.records.length} records? This will merge with your current data.`)) {
                     const currentRecords = getRecords();
-                    // Merge and avoid exact duplicate IDs if possible (though IDs are timestamps)
                     const merged = [...currentRecords, ...data.records];
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
 
@@ -368,11 +419,11 @@ function initSettingsPage() {
                         saveSettings(data.settings);
                     }
 
-                    alert('Import Successful!');
-                    location.reload();
+                    announce('Import Successful! Reloading...', 'polite');
+                    setTimeout(() => location.reload(), 1500);
                 }
             } catch (err) {
-                alert('Import Failed: ' + err.message);
+                announce('Import Failed: ' + err.message, 'assertive');
             }
         };
         reader.readAsText(file);

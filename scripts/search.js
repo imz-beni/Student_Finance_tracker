@@ -3,6 +3,20 @@
  */
 
 /**
+ * Safely compiles a regex from user input
+ * @param {string} input 
+ * @param {string} flags 
+ * @returns {RegExp|null}
+ */
+export function compileRegex(input, flags = 'i') {
+    try {
+        return input ? new RegExp(input, flags) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+/**
  * Filters and sorts records based on user criteria
  * @param {Array} records 
  * @param {Object} criteria 
@@ -16,9 +30,15 @@ export function searchAndSortRecords(records, { query, category, sortType }) {
         filtered = filtered.filter(r => (r.category || '').toLowerCase() === category.toLowerCase());
     }
 
-    // Search by Description
+    // Search by Description using Regex
     if (query) {
-        filtered = filtered.filter(r => (r.description || '').toLowerCase().includes(query.toLowerCase().trim()));
+        const re = compileRegex(query);
+        if (re) {
+            filtered = filtered.filter(r => re.test(r.description || ''));
+        } else {
+            // Fallback to includes if regex is invalid or empty
+            filtered = filtered.filter(r => (r.description || '').toLowerCase().includes(query.toLowerCase().trim()));
+        }
     }
 
     // Sort

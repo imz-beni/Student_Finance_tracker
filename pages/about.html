@@ -10,9 +10,11 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+
     <div id="app-layout">
         <!-- Sidebar Navigation (Desktop) -->
-        <div class="sidebar">
+        <nav class="sidebar" aria-label="Main Navigation">
             <a href="../index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
                 <span class="logo-text">FinanceTracker</span>
@@ -25,26 +27,29 @@
                 <div style="flex-grow: 1;"></div> <!-- Spacer push to bottom -->
                 <a href="about.html" class="nav-item active">ℹ️ About</a>
             </div>
-        </div>
+        </nav>
 
         <!-- Main Content Area -->
-        <div class="main-content">
+        <main id="main-content" class="main-content">
             <!-- Header for Mobile -->
-            <div class="mobile-header">
+            <header class="mobile-header">
                 <div class="logo-area" style="margin-bottom: 0;">
                     <div class="logo-icon" style="width: 32px; height: 32px; box-shadow: none;">💰</div>
                     <span class="logo-text" style="font-size: 1rem;">FinanceTracker</span>
                 </div>
-                <a href="form.html" class="btn btn-primary" style="padding: 6px 16px; font-size: 0.8rem;">+</a>
-            </div>
+                <a href="form.html" class="btn btn-primary" style="padding: 6px 16px; font-size: 0.8rem;"
+                    aria-label="Add new record">+</a>
+            </header>
 
             <div class="max-w-3xl">
                 <!-- Page Title -->
-                <h1 class="text-3xl font-bold mb-8">About</h1>
+                <header>
+                    <h1 class="text-3xl font-bold mb-8">About</h1>
+                </header>
 
                 <!-- Purpose Card -->
-                <div class="card mb-8">
-                    <h2 class="text-xl font-bold mb-4 text-primary">🎯 Purpose</h2>
+                <section class="card mb-8" aria-labelledby="purpose-title">
+                    <h2 id="purpose-title" class="text-xl font-bold mb-4 text-primary">🎯 Purpose</h2>
                     <p class="text-muted leading-relaxed">
                         Student Finance Tracker is a personal project designed to master the fundamentals of modern web
                         development.
@@ -54,19 +59,20 @@
                         the complexity of enterprise software.
                     </p>
                     <div class="mt-6 flex gap-4">
-                        <div class="badge badge-secondary">Educational</div>
-                        <div class="badge badge-primary">Open Source</div>
-                        <div class="badge badge-accent">Minimalist</div>
+                        <span class="badge badge-secondary">Educational</span>
+                        <span class="badge badge-primary">Open Source</span>
+                        <span class="badge badge-accent">Minimalist</span>
                     </div>
-                </div>
+                </section>
 
                 <!-- Contact Card -->
-                <div class="card">
-                    <h2 class="text-xl font-bold mb-4 text-primary">📧 Contact Developer</h2>
+                <section class="card" aria-labelledby="contact-title">
+                    <h2 id="contact-title" class="text-xl font-bold mb-4 text-primary">📧 Contact Developer</h2>
                     <div class="flex flex-col gap-6">
                         <!-- Developer Name -->
                         <div class="flex items-center gap-4">
-                            <div class="btn-icon bg-surface border border-border">👤</div>
+                            <button type="button" class="btn-icon bg-surface border border-border"
+                                aria-label="Developer Name">👤</button>
                             <div>
                                 <strong class="text-main block">Imanzi Beni</strong>
                                 <span class="text-sm text-muted">Lead Developer</span>
@@ -75,7 +81,8 @@
 
                         <!-- GitHub Link -->
                         <div class="flex items-center gap-4">
-                            <div class="btn-icon bg-surface border border-border">🐙</div>
+                            <button type="button" class="btn-icon bg-surface border border-border"
+                                aria-label="GitHub Profile">🐙</button>
                             <div>
                                 <strong class="text-main block">GitHub</strong>
                                 <a href="https://github.com/imz-beni"
@@ -85,7 +92,8 @@
 
                         <!-- Email Link -->
                         <div class="flex items-center gap-4">
-                            <div class="btn-icon bg-surface border border-border">✉️</div>
+                            <button type="button" class="btn-icon bg-surface border border-border"
+                                aria-label="Email Contact">✉️</button>
                             <div>
                                 <strong class="text-main block">Email</strong>
                                 <a href="mailto:iman@example.com"
@@ -93,12 +101,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </div>
+        </main>
 
         <!-- Navigation Bar for Mobile -->
-        <div class="bottom-nav">
+        <nav class="bottom-nav" aria-label="Mobile Navigation">
             <a href="../index.html" class="nav-item-mobile">
                 📊 <span>Dash</span>
             </a>
@@ -114,7 +122,12 @@
             <a href="about.html" class="nav-item-mobile active">
                 ℹ️ <span>About</span>
             </a>
-        </div>
+        </nav>
+
+        <!-- ARIA Live Regions -->
+        <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
+        <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
+
     </div>
     <script type="module" src="../scripts/ui.js"></script>
 </body>

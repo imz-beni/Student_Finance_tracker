@@ -1,3 +1,21 @@
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary);
+    color: white;
+    padding: 8px;
+    z-index: 1000;
+    transition: top 0.3s;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* Base Layout */
 body {
     background-color: var(--color-bg-base);
@@ -169,6 +187,18 @@ body {
 @media (min-width: 768px) {
     .grid-stats {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .main-content {
+        padding: var(--space-6);
+    }
+
+    .mobile-header {
+        margin-bottom: var(--space-8);
+    }
+
+    .page-header {
+        margin-bottom: var(--space-10);
     }
 }
 

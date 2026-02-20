@@ -1,8 +1,5 @@
-/**
- * Student Finance Tracker - Validation Logic
- */
-
 import { REGEX } from './state.js';
+import { announce } from './ui.js';
 
 /**
  * Validates record data against predefined regex patterns
@@ -11,20 +8,30 @@ import { REGEX } from './state.js';
  */
 export function validateRecord(data) {
     if (!REGEX.description.test(data.description)) {
-        alert('Invalid Description: Cannot be empty or start/end with whitespace.');
+        announce('Invalid Description: Cannot be empty or start/end with whitespace.', 'assertive');
         return false;
     }
+
+    // Advanced Regex Check: Repeated Words
+    if (REGEX.repeatedWords.test(data.description)) {
+        announce('Warning: Your description contains repeated consecutive words.', 'polite');
+        // We allow this, so we don't return false
+    }
+
     if (!REGEX.amount.test(data.amount)) {
-        alert('Invalid Amount: Must be a positive number with up to 2 decimal places.');
+        announce('Invalid Amount: Must be a positive number with up to 2 decimal places.', 'assertive');
         return false;
     }
     if (!REGEX.category.test(data.category)) {
-        alert('Invalid Category: Only letters, spaces, and hyphens allowed.');
+        announce('Invalid Category: Only letters, spaces, and hyphens allowed.', 'assertive');
         return false;
     }
-    if (!data.date) {
-        alert('Invalid Date: Please select a date.');
+
+    // 4th Regex Rule: Date Validation
+    if (!REGEX.date.test(data.date)) {
+        announce('Invalid Date: Please use YYYY-MM-DD format.', 'assertive');
         return false;
     }
+
     return true;
 }

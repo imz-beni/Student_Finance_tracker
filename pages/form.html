@@ -10,9 +10,11 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+
     <div id="app-layout">
         <!-- Sidebar Navigation (Desktop) -->
-        <div class="sidebar">
+        <nav class="sidebar" aria-label="Main Navigation">
             <a href="../index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
                 <span class="logo-text">FinanceTracker</span>
@@ -25,23 +27,23 @@
                 <div class="spacer"></div>
                 <a href="about.html" class="nav-item">ℹ️ About</a>
             </div>
-        </div>
+        </nav>
 
         <!-- Main Content Area -->
-        <div class="main-content">
+        <main id="main-content" class="main-content">
             <!-- Header for Mobile -->
-            <div class="mobile-header">
+            <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
                     <span class="logo-text logo-text-mobile">FinanceTracker</span>
                 </div>
-            </div>
+            </header>
 
             <!-- Page Title -->
-            <div class="mb-4 text-center">
+            <header class="mb-4 text-center">
                 <h1 class="text-3xl font-bold mb-2">Add/Edit Entry</h1>
                 <p class="text-muted text-sm">Log your spending or income.</p>
-            </div>
+            </header>
 
             <!-- Centered Focused Form -->
             <div class="w-full-max-500">
@@ -84,36 +86,24 @@
 
                     <!-- Action Buttons -->
                     <div class="flex gap-4">
-                        <button type="submit" class="btn btn-primary flex-2 p-4">Save Record</button>
-                        <button type="button" class="btn btn-secondary flex-1"
-                            onclick="window.history.back()">Cancel</button>
+                        <a href="form.html" class="nav-item-mobile active">
+                            ➕ <span>Form</span>
+                        </a>
+                        <a href="settings.html" class="nav-item-mobile">
+                            ⚙️ <span>Settings</span>
+                        </a>
+                        <a href="about.html" class="nav-item-mobile">
+                            ℹ️ <span>About</span>
+                        </a>
+                        </nav>
+
+                        <!-- ARIA Live Regions -->
+                        <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
+                        <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
+
                     </div>
 
-                </form>
-            </div>
-        </div>
-
-        <!-- Navigation Bar for Mobile -->
-        <div class="bottom-nav">
-            <a href="../index.html" class="nav-item-mobile">
-                📊 <span>Dash</span>
-            </a>
-            <a href="records.html" class="nav-item-mobile">
-                📋 <span>Records</span>
-            </a>
-            <a href="form.html" class="nav-item-mobile active">
-                ➕ <span>Form</span>
-            </a>
-            <a href="settings.html" class="nav-item-mobile">
-                ⚙️ <span>Settings</span>
-            </a>
-            <a href="about.html" class="nav-item-mobile">
-                ℹ️ <span>About</span>
-            </a>
-        </div>
-    </div>
-
-    <script type="module" src="../scripts/ui.js"></script>
+                    <script type="module" src="../scripts/ui.js"></script>
 </body>
 
 </html>
