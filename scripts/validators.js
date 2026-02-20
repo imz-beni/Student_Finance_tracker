@@ -1,21 +1,14 @@
 import { REGEX } from './state.js';
 import { announce } from './ui.js';
 
-/**
- * Validates record data against predefined regex patterns
- * @param {Object} data 
- * @returns {boolean}
- */
 export function validateRecord(data) {
     if (!REGEX.description.test(data.description)) {
         announce('Invalid Description: Cannot be empty or start/end with whitespace.', 'assertive');
         return false;
     }
 
-    // Advanced Regex Check: Repeated Words
     if (REGEX.repeatedWords.test(data.description)) {
         announce('Warning: Your description contains repeated consecutive words.', 'polite');
-        // We allow this, so we don't return false
     }
 
     if (!REGEX.amount.test(data.amount)) {
@@ -27,7 +20,6 @@ export function validateRecord(data) {
         return false;
     }
 
-    // 4th Regex Rule: Date Validation
     if (!REGEX.date.test(data.date)) {
         announce('Invalid Date: Please use YYYY-MM-DD format.', 'assertive');
         return false;

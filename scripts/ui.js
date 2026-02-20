@@ -1,13 +1,7 @@
-/**
- * Student Finance Tracker - UI & App Entry Point
- */
-
 import { getRecords, saveRecord, updateRecord, deleteRecord, getSettings, saveSettings } from './storage.js';
 import { validateRecord } from './validators.js';
 import { searchAndSortRecords, compileRegex } from './search.js';
 import { STORAGE_KEY, EXCHANGE_RATES } from './state.js';
-
-// --- CONFIGURATION & ERRORS ---
 
 // Global Error Handler
 window.onerror = function (message, source, lineno, colno, error) {
@@ -15,11 +9,6 @@ window.onerror = function (message, source, lineno, colno, error) {
     announce(`A system error occurred: ${message}`, 'assertive');
 };
 
-/**
- * Announces a message via ARIA live regions and optionally injects it into a form
- * @param {string} message 
- * @param {string} type 'polite' or 'assertive'
- */
 export function announce(message, type = 'polite') {
     const regionId = type === 'assertive' ? 'live-region-assertive' : 'live-region-polite';
     const region = document.getElementById(regionId);
@@ -47,11 +36,6 @@ window.appInitialized = true;
 
 // --- UI FORMATTING & RENDERING ---
 
-/**
- * Format number as currency based on settings
- * @param {any} amount 
- * @returns {string}
- */
 export function formatCurrency(amount) {
     const num = parseFloat(amount);
     if (isNaN(num)) return '$0.00';
@@ -74,10 +58,6 @@ export function formatCurrency(amount) {
     }).format(converted);
 }
 
-/**
- * Apply theme to the whole document
- * @param {string} theme 'dark' or 'light'
- */
 export function applyTheme(theme) {
     if (theme === 'dark') {
         document.body.classList.add('dark-theme');
@@ -86,20 +66,11 @@ export function applyTheme(theme) {
     }
 }
 
-/**
- * Highlights matches in text using a regex
- * @param {string} text 
- * @param {RegExp} re 
- * @returns {string}
- */
 export function highlight(text, re) {
     if (!re || !text) return text;
     return text.replace(re, m => `<mark class="search-highlight">${m}</mark>`);
 }
 
-/**
- * Render the records table with filtering and sorting
- */
 export function renderTable() {
     const tbody = document.getElementById('records-table-body');
     if (!tbody) return;
@@ -115,8 +86,11 @@ export function renderTable() {
     tbody.innerHTML = '';
     if (filteredRecords.length === 0) {
         tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted p-8">No records found.</td></tr>';
+        announce('No records found matching your search.', 'polite');
         return;
     }
+
+    announce(`${filteredRecords.length} result${filteredRecords.length !== 1 ? 's' : ''} found`, 'polite');
 
     filteredRecords.forEach(record => {
         const catName = record.category || 'Other';
@@ -156,9 +130,6 @@ export function renderTable() {
     });
 }
 
-/**
- * Render basic stats on the dashboard
- */
 export function renderDashboard() {
     const records = getRecords();
     const income = records.filter(r => (r.category || '').toLowerCase() === 'income').reduce((sum, r) => sum + parseFloat(r.amount || 0), 0);
@@ -234,7 +205,6 @@ function updateBudgetLimits(records) {
     updateEl('monthly-budget-spent', 'monthly-budget-badge', 'monthly-budget-fill', monthlySpent, 1000);
     updateEl('entertainment-budget-spent', 'entertainment-budget-badge', 'entertainment-budget-fill', entSpent, 200, true);
 
-    // ARIA Live Budget Alerts
     if (monthlySpent > 1000) {
         announce('Alert: You have exceeded your monthly budget limit of $1,000!', 'assertive');
     } else if (monthlySpent > 800) {
@@ -257,8 +227,6 @@ export function enableInlineEdit(tr, record) {
         <button class="btn btn-secondary btn-cancel-edit" style="padding: 4px 8px; font-size: 0.7rem;">Cancel</button>
     `;
 }
-
-// --- EVENT HANDLERS ---
 
 function initDiagnostics() {
     document.addEventListener('keydown', (e) => {
@@ -344,16 +312,26 @@ function initSettingsPage() {
     const currencySelect = document.getElementById('currency-select');
 
     if (themeToggle) {
-        if (settings.theme === 'dark') themeToggle.classList.add('active');
+        // Initial State
+        const isDark = settings.theme === 'dark';
+        themeToggle.setAttribute('aria-checked', isDark ? 'true' : 'false');
+        if (isDark) themeToggle.classList.add('active');
         else themeToggle.classList.remove('active');
 
         themeToggle.addEventListener('click', () => {
+            const currentlyDark = themeToggle.getAttribute('aria-checked') === 'true';
+            const newIsDark = !currentlyDark;
+
+            themeToggle.setAttribute('aria-checked', newIsDark ? 'true' : 'false');
             themeToggle.classList.toggle('active');
-            const newTheme = themeToggle.classList.contains('active') ? 'dark' : 'light';
+
+            const newTheme = newIsDark ? 'dark' : 'light';
             const s = getSettings();
             s.theme = newTheme;
             saveSettings(s);
             applyTheme(newTheme);
+
+            announce(`Theme changed to ${newTheme} mode.`, 'polite');
         });
     }
 
@@ -371,8 +349,6 @@ function initSettingsPage() {
         e.preventDefault();
         announce('Profile updated successfully!', 'polite');
     });
-
-    // --- DATA MANAGEMENT ---
 
     // Export
     document.getElementById('export-btn')?.addEventListener('click', () => {
@@ -437,8 +413,6 @@ function initSettingsPage() {
         }
     });
 }
-
-// --- APP INITIALIZATION ---
 
 document.addEventListener('DOMContentLoaded', () => {
     const settings = getSettings();

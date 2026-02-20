@@ -1,13 +1,5 @@
-/**
- * Student Finance Tracker - Storage Logic
- */
-
 import { STORAGE_KEY, SETTINGS_KEY, DEFAULT_SETTINGS } from './state.js';
 
-/**
- * Get all records from LocalStorage
- * @returns {Array} Array of record objects
- */
 export function getRecords() {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
@@ -19,10 +11,6 @@ export function getRecords() {
     }
 }
 
-/**
- * Save a new record
- * @param {Object} record 
- */
 export function saveRecord(record) {
     try {
         const records = getRecords();
@@ -41,11 +29,6 @@ export function saveRecord(record) {
     }
 }
 
-/**
- * Update an existing record by ID
- * @param {string} id 
- * @param {Object} updatedData 
- */
 export function updateRecord(id, updatedData) {
     try {
         let records = getRecords();
@@ -66,10 +49,6 @@ export function updateRecord(id, updatedData) {
     return false;
 }
 
-/**
- * Delete a record by ID
- * @param {string} id 
- */
 export function deleteRecord(id) {
     try {
         let records = getRecords();
@@ -80,10 +59,6 @@ export function deleteRecord(id) {
     }
 }
 
-/**
- * Get settings from LocalStorage
- * @returns {Object} Settings object
- */
 export function getSettings() {
     try {
         const data = localStorage.getItem(SETTINGS_KEY);
@@ -94,10 +69,6 @@ export function getSettings() {
     }
 }
 
-/**
- * Save settings to LocalStorage
- * @param {Object} settings 
- */
 export function saveSettings(settings) {
     try {
         localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));

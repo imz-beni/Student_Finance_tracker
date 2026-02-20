@@ -13,7 +13,6 @@
     <a href="#main-content" class="skip-link">Skip to Content</a>
 
     <div id="app-layout">
-        <!-- Sidebar Navigation (Desktop) -->
         <nav class="sidebar" aria-label="Main Navigation">
             <a href="../index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
@@ -31,7 +30,6 @@
 
         <!-- Main Content Area -->
         <main id="main-content" class="main-content">
-            <!-- Header for Mobile -->
             <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
@@ -41,13 +39,11 @@
             </header>
 
             <div class="max-w-3xl">
-                <!-- Page Title -->
-                <header>
-                    <h1 class="text-3xl font-bold mb-2">Settings</h1>
-                    <p class="text-muted mb-8">Manage your profile and application data.</p>
-                </header>
+                <div class="mobile-header">
+                    <h1 class="text-xl font-bold">Settings</h1>
+                    <a href="form.html" class="btn btn-primary btn-mobile-header" aria-label="Add new record">+</a>
+                </div>
 
-                <!-- Profile Settings Section -->
                 <div class="mb-10">
                     <h2 class="text-xl font-bold mb-4 flex items-center gap-2">👤 Profile</h2>
                     <div class="card">
@@ -63,7 +59,6 @@
                     </div>
                 </div>
 
-                <!-- App Preferences Section -->
                 <div class="mb-10">
                     <h2 class="text-xl font-bold mb-4 flex items-center gap-2">⚙️ Preferences</h2>
                     <div class="card">
@@ -89,15 +84,16 @@
                                 </div>
                             </div>
 
-                            <!-- Toggle Switches -->
-                            <div class="form-group flex items-center justify-between py-2 border-b border-border">
+                            <div
+                                class="flex justify-between items-center bg-surface p-4 rounded-xl border border-border">
                                 <div>
-                                    <span class="font-bold text-main block text-sm">Dark Theme</span>
-                                    <span class="text-xs text-muted">Reduce eye strain</span>
+                                    <span class="text-main font-semibold block">Dark Mode</span>
+                                    <span class="text-muted text-xs">Switch to dark theme for night usage</span>
                                 </div>
-                                <div id="theme-toggle" class="toggle-switch">
+                                <button type="button" id="theme-toggle" class="toggle-switch" role="switch"
+                                    aria-checked="false" aria-label="Enable dark theme">
                                     <div class="toggle-knob"></div>
-                                </div>
+                                </button>
                             </div>
 
                             <div class="form-group flex items-center justify-between py-2">
@@ -113,12 +109,10 @@
                     </div>
                 </div>
 
-                <!-- Data Management Section -->
                 <div class="mb-10">
                     <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-danger">⚠️ Data Management</h2>
                     <div class="card card-danger-border">
                         <div class="flex flex-col gap-4">
-                            <!-- Export Action -->
                             <div class="flex items-center justify-between">
                                 <div>
                                     <strong class="text-main block">Export Data</strong>
@@ -127,7 +121,6 @@
                                 <button id="export-btn" class="btn btn-secondary text-xs">⬇️ Export</button>
                             </div>
 
-                            <!-- Import Action -->
                             <div class="flex items-center justify-between">
                                 <div>
                                     <strong class="text-main block">Import Data</strong>
@@ -137,10 +130,8 @@
                                 <button id="import-btn" class="btn btn-secondary text-xs">⬆️ Import</button>
                             </div>
 
-                            <!-- Horizontal Divider -->
                             <hr style="border: 0; border-top: 1px solid var(--color-border);">
 
-                            <!-- Reset Action -->
                             <div class="flex items-center justify-between">
                                 <div>
                                     <strong class="text-danger block">Reset Application</strong>
@@ -152,29 +143,32 @@
                         </div>
                     </div>
                 </div>
+
+                <footer>
+                    <p class="text-muted text-sm">© 2025 FinanceTracker · Built by Imanzi Beni</p>
+                </footer>
+
             </div>
         </main>
 
-        <!-- Navigation Bar for Mobile -->
         <nav class="bottom-nav" aria-label="Mobile Navigation">
-            <a href="../index.html" class="nav-item-mobile">
+            <a href="../index.html" class="nav-item-mobile" aria-label="Dashboard">
                 📊 <span>Dash</span>
             </a>
-            <a href="records.html" class="nav-item-mobile">
+            <a href="records.html" class="nav-item-mobile" aria-label="Records">
                 📋 <span>Records</span>
             </a>
-            <a href="form.html" class="nav-item-mobile">
+            <a href="form.html" class="nav-item-mobile" aria-label="Form">
                 ➕ <span>Form</span>
             </a>
-            <a href="settings.html" class="nav-item-mobile active">
+            <a href="settings.html" class="nav-item-mobile active" aria-label="Settings">
                 ⚙️ <span>Settings</span>
             </a>
-            <a href="about.html" class="nav-item-mobile">
+            <a href="about.html" class="nav-item-mobile" aria-label="About">
                 ℹ️ <span>About</span>
             </a>
         </nav>
 
-        <!-- ARIA Live Regions -->
         <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
         <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
 

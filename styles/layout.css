@@ -1,4 +1,3 @@
-/* Skip Link */
 .skip-link {
     position: absolute;
     top: -40px;
@@ -16,7 +15,6 @@
     top: 0;
 }
 
-/* Base Layout */
 body {
     background-color: var(--color-bg-base);
     color: var(--text-body);
@@ -29,9 +27,6 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
-   Sidebar (Desktop)
-   ========================= */
 .sidebar {
     width: var(--sidebar-width);
     background-color: var(--color-bg-surface);
@@ -104,9 +99,6 @@ body {
     font-weight: var(--font-weight-semibold);
 }
 
-/* =========================
-   Main Content Area
-   ========================= */
 .main-content {
     flex: 1;
     padding: var(--space-4);
@@ -122,9 +114,6 @@ body {
     margin-bottom: var(--space-8);
 }
 
-/* =========================
-   Mobile Bottom Nav
-   ========================= */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -166,7 +155,6 @@ body {
     color: var(--color-primary);
 }
 
-/* Mobile Header */
 .mobile-header {
     display: flex;
     justify-content: space-between;
@@ -175,9 +163,6 @@ body {
     padding-top: var(--space-2);
 }
 
-/* =========================
-   Grid System
-   ========================= */
 .grid-stats {
     display: grid;
     grid-template-columns: 1fr;
@@ -202,9 +187,6 @@ body {
     }
 }
 
-/* =========================
-   Media Queries
-   ========================= */
 @media (min-width: 1024px) {
     .sidebar {
         display: block;
@@ -223,4 +205,13 @@ body {
     .mobile-header {
         display: none;
     }
+}
+
+footer {
+    text-align: center;
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    margin-top: auto;
 }

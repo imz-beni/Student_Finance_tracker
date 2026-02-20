@@ -13,7 +13,6 @@
     <a href="#main-content" class="skip-link">Skip to Content</a>
 
     <div id="app-layout">
-        <!-- Sidebar Navigation (Desktop) -->
         <nav class="sidebar" aria-label="Main Navigation">
             <a href="../index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
@@ -29,9 +28,26 @@
             </div>
         </nav>
 
+        <nav class="bottom-nav" aria-label="Mobile Navigation">
+            <a href="../index.html" class="nav-item-mobile" aria-label="Dashboard">
+                📊 <span>Dash</span>
+            </a>
+            <a href="records.html" class="nav-item-mobile" aria-label="Records">
+                📋 <span>Records</span>
+            </a>
+            <a href="form.html" class="nav-item-mobile active" aria-label="Form">
+                ➕ <span>Form</span>
+            </a>
+            <a href="settings.html" class="nav-item-mobile" aria-label="Settings">
+                ⚙️ <span>Settings</span>
+            </a>
+            <a href="about.html" class="nav-item-mobile" aria-label="About">
+                ℹ️ <span>About</span>
+            </a>
+        </nav>
+
         <!-- Main Content Area -->
         <main id="main-content" class="main-content">
-            <!-- Header for Mobile -->
             <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
@@ -39,34 +55,32 @@
                 </div>
             </header>
 
-            <!-- Page Title -->
             <header class="mb-4 text-center">
                 <h1 class="text-3xl font-bold mb-2">Add/Edit Entry</h1>
                 <p class="text-muted text-sm">Log your spending or income.</p>
             </header>
 
-            <!-- Centered Focused Form -->
             <div class="w-full-max-500">
                 <form id="transaction-form" class="card shadow-lg p-8">
 
-                    <!-- Amount Input -->
                     <div class="form-group text-center">
                         <label class="form-label text-center mb-4">Amount ($)</label>
                         <input type="number" step="0.01" id="amount-input" class="form-input input-amount-large"
-                            placeholder="0.00" required>
+                            placeholder="0.00" required aria-describedby="amount-error">
+                        <span id="amount-error" class="error-msg" role="alert"></span>
                     </div>
 
-                    <!-- Description Input -->
                     <div class="form-group">
                         <label class="form-label">Description</label>
-                        <input type="text" id="desc-input" class="form-input" placeholder="e.g., Textbooks" required>
+                        <input type="text" id="desc-input" class="form-input" placeholder="e.g., Textbooks" required
+                            aria-describedby="desc-error">
+                        <span id="desc-error" class="error-msg" role="alert"></span>
                     </div>
 
-                    <!-- Category Selection -->
                     <div class="flex gap-4 mb-4">
                         <div class="flex-1">
                             <label class="form-label">Category</label>
-                            <select id="category-input" class="form-select" required>
+                            <select id="category-input" class="form-select" required aria-describedby="category-error">
                                 <option value="" disabled selected>Select...</option>
                                 <option value="Food">🍕 Food</option>
                                 <option value="Transport">🚌 Transport</option>
@@ -75,35 +89,39 @@
                                 <option value="Utilities">💡 Utilities</option>
                                 <option value="Income">💰 Income</option>
                             </select>
+                            <span id="category-error" class="error-msg" role="alert"></span>
                         </div>
                     </div>
 
-                    <!-- Date Input -->
                     <div class="form-group mb-8">
                         <label class="form-label">Date</label>
-                        <input type="date" id="date-input" class="form-input" required>
+                        <input type="date" id="date-input" class="form-input" required aria-describedby="date-error">
+                        <span id="date-error" class="error-msg" role="alert"></span>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="flex gap-4">
-                        <a href="form.html" class="nav-item-mobile active">
-                            ➕ <span>Form</span>
+                        <button type="submit" class="btn btn-primary flex-1 shadow-blue">
+                            Save Record
+                        </button>
+                        <a href="records.html" class="btn btn-secondary flex-1">
+                            Cancel
                         </a>
-                        <a href="settings.html" class="nav-item-mobile">
-                            ⚙️ <span>Settings</span>
-                        </a>
-                        <a href="about.html" class="nav-item-mobile">
-                            ℹ️ <span>About</span>
-                        </a>
-                        </nav>
-
-                        <!-- ARIA Live Regions -->
-                        <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
-                        <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
-
                     </div>
+                </form>
+            </div>
 
-                    <script type="module" src="../scripts/ui.js"></script>
+            <footer>
+                <p class="text-muted text-sm">© 2025 FinanceTracker · Built by Imanzi Beni</p>
+            </footer>
+
+        </main>
+
+        <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
+        <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
+
+    </div>
+
+    <script type="module" src="../scripts/ui.js"></script>
 </body>
 
 </html>

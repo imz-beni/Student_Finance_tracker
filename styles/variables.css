@@ -1,27 +1,19 @@
 :root {
-  /* =========================
-     Color Palette (Standard Light Mode)
-     ========================= */
 
-  /* Primary: Indigo Accent */
   --color-primary-hue: 245;
   --color-primary: hsl(245, 80%, 60%);
   --color-primary-dark: hsl(245, 80%, 50%);
   --color-primary-soft: hsl(245, 100%, 96%);
 
-  /* Secondary & Accents */
   --color-secondary: hsl(150, 60%, 45%);
   --color-secondary-soft: hsl(150, 50%, 95%);
   --color-accent: hsl(340, 85%, 60%);
   --color-accent-soft: hsl(340, 100%, 96%);
 
-  /* Danger/Error */
   --color-danger: #ef4444;
-  /* Red 500 */
   --color-danger-soft: #fee2e2;
   /* Red 100 */
 
-  /* Clean Slate Palette */
   --color-white: #ffffff;
   --color-bg-base: #ffffff;
   /* Pure White Background */
@@ -30,7 +22,6 @@
   --color-border: #f1f5f9;
   /* Lighter Slate for subtle separation */
 
-  /* Standard Text */
   --text-main: #0f172a;
   /* Slate 900 */
   --text-body: #334155;
@@ -41,7 +32,6 @@
   /* Slate 400 */
   --text-on-primary: #ffffff;
 
-  /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -56,7 +46,6 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 800;
 
-  /* Layout & Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -76,7 +65,6 @@
   --radius-xl: 2rem;
   --radius-full: 9999px;
 
-  /* Effects */
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05);
   --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.05);
@@ -85,21 +73,15 @@
   --transition: 200ms ease;
 }
 
-/* =========================
-   Standard Dark Mode Overrides
-   ========================= */
 body.dark-theme {
-  /* Deep Slate Backgrounds */
   --color-bg-base: #020617;
   /* Slate 950 */
   --color-bg-surface: #0f172a;
   /* Slate 900 */
 
-  /* Subtle Borders */
   --color-border: #1e293b;
   /* Slate 800 */
 
-  /* High Contrast Text */
   --text-main: #f8fafc;
   /* Slate 50 */
   --text-body: #cbd5e1;
@@ -109,16 +91,13 @@ body.dark-theme {
   --text-light: #475569;
   /* Slate 600 */
 
-  /* Soft Dark Accents */
   --color-primary-soft: hsl(245, 40%, 15%);
   --color-secondary-soft: hsl(150, 40%, 12%);
   --color-accent-soft: hsl(340, 40%, 15%);
 
-  /* Soft Danger Overrides */
   --color-danger-soft: #450a0a;
   /* Dark Red 950 */
 
-  /* Depth Shadows */
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.8);
   --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.7);
   --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.8);

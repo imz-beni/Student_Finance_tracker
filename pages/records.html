@@ -13,7 +13,6 @@
     <a href="#main-content" class="skip-link">Skip to Content</a>
 
     <div id="app-layout">
-        <!-- Sidebar Navigation (Desktop) -->
         <nav class="sidebar" aria-label="Main Navigation">
             <a href="index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
@@ -31,7 +30,6 @@
 
         <!-- Main Content Area -->
         <main id="main-content" class="main-content">
-            <!-- Header for Mobile -->
             <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
@@ -40,7 +38,6 @@
                 <a href="form.html" class="btn btn-primary btn-mobile-header" aria-label="Add new record">+</a>
             </header>
 
-            <!-- Page Title and Filters -->
             <header class="page-header">
                 <div>
                     <h1 class="text-3xl font-bold mb-2">Transaction Records</h1>
@@ -53,7 +50,6 @@
                 </div>
             </header>
 
-            <!-- Search and Filter Controls -->
             <section class="card mb-8" aria-labelledby="filters-title">
                 <h2 id="filters-title" class="visually-hidden">Filter and Sort Transactions</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -95,7 +91,6 @@
                 </div>
             </section>
 
-            <!-- Transaction Table -->
             <section class="table-container mb-6">
                 <table class="table">
                     <caption>Financial Transaction History</caption>
@@ -143,30 +138,32 @@
                         style="padding: 4px 8px; font-size: 0.7rem; color: var(--color-danger);">Clear All
                         Records</button>
                 </div>
-                </section>
+            </div>
+
+            <footer>
+                <p class="text-muted text-sm">© 2025 FinanceTracker · Built by Imanzi Beni</p>
+            </footer>
 
         </main>
 
-        <!-- Navigation Bar for Mobile -->
         <nav class="bottom-nav" aria-label="Mobile Navigation">
-            <a href="../index.html" class="nav-item-mobile">
+            <a href="../index.html" class="nav-item-mobile" aria-label="Dashboard">
                 📊 <span>Dash</span>
             </a>
-            <a href="records.html" class="nav-item-mobile active">
+            <a href="records.html" class="nav-item-mobile active" aria-label="Records">
                 📋 <span>Records</span>
             </a>
-            <a href="form.html" class="nav-item-mobile">
+            <a href="form.html" class="nav-item-mobile" aria-label="Form">
                 ➕ <span>Form</span>
             </a>
-            <a href="settings.html" class="nav-item-mobile">
+            <a href="settings.html" class="nav-item-mobile" aria-label="Settings">
                 ⚙️ <span>Settings</span>
             </a>
-            <a href="about.html" class="nav-item-mobile">
+            <a href="about.html" class="nav-item-mobile" aria-label="About">
                 ℹ️ <span>About</span>
             </a>
         </nav>
 
-        <!-- ARIA Live Regions -->
         <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
         <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
 

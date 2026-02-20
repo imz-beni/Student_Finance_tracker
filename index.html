@@ -20,7 +20,6 @@
     <a href="#main-content" class="skip-link">Skip to Content</a>
 
     <div id="app-layout">
-        <!-- Sidebar Navigation (Desktop) -->
         <nav class="sidebar" aria-label="Main Navigation">
             <a href="index.html" class="logo-area">
                 <div class="logo-icon">💰</div>
@@ -39,7 +38,6 @@
 
         <!-- Main Content Area -->
         <main id="main-content" class="main-content">
-            <!-- Header for Mobile -->
             <header class="mobile-header">
                 <div class="logo-area logo-area-mobile">
                     <div class="logo-icon logo-icon-mobile">💰</div>
@@ -55,13 +53,12 @@
                     <p class="text-muted">Overview of your finances.</p>
                 </div>
                 <!-- Action Button -->
-                <a href="form.html" class="btn btn-primary shadow-blue desktop-only-btn" style="display: none;"
+                <a href="pages/form.html" class="btn btn-primary shadow-blue desktop-only-btn" style="display: none;"
                     aria-label="Create new entry">
                     + New Entry
                 </a>
             </header>
 
-            <!-- Top Statistics Boxes -->
             <div class="grid-stats mb-8">
                 <div class="card flex flex-col justify-between">
                     <span class="text-muted text-xs font-bold uppercase tracking-wider mb-2">Total Balance</span>
@@ -82,7 +79,6 @@
                 </div>
             </div>
 
-            <!-- Spending Activity Chart -->
             <div class="mb-10">
                 <h2 class="text-xl font-bold mb-6">Spending Activity</h2>
                 <div class="card p-8" style="padding: 0 var(--space-6);">
@@ -95,7 +91,6 @@
                 </div>
             </div>
 
-            <!-- Budget Analysis Section -->
             <div class="mb-10">
                 <h2 class="text-xl font-bold mb-6">Budget Limits</h2>
                 <div class="grid-stats">
@@ -136,28 +131,30 @@
                 </div>
                 </section>
 
+                <footer>
+                    <p class="text-muted text-sm">© 2025 FinanceTracker · Built by Imanzi Beni</p>
+                </footer>
+
         </main>
 
-        <!-- Navigation Bar for Mobile -->
         <nav class="bottom-nav" aria-label="Mobile Navigation">
-            <a href="index.html" class="nav-item-mobile active">
+            <a href="index.html" class="nav-item-mobile active" aria-label="Dashboard">
                 📊 <span>Dash</span>
             </a>
-            <a href="pages/records.html" class="nav-item-mobile">
+            <a href="pages/records.html" class="nav-item-mobile" aria-label="Records">
                 📋 <span>Records</span>
             </a>
-            <a href="pages/form.html" class="nav-item-mobile">
+            <a href="pages/form.html" class="nav-item-mobile" aria-label="Form">
                 ➕ <span>Form</span>
             </a>
-            <a href="pages/settings.html" class="nav-item-mobile">
+            <a href="pages/settings.html" class="nav-item-mobile" aria-label="Settings">
                 ⚙️ <span>Settings</span>
             </a>
-            <a href="pages/about.html" class="nav-item-mobile">
+            <a href="pages/about.html" class="nav-item-mobile" aria-label="About">
                 ℹ️ <span>About</span>
             </a>
         </nav>
 
-        <!-- ARIA Live Regions -->
         <div id="live-region-polite" aria-live="polite" class="visually-hidden"></div>
         <div id="live-region-assertive" aria-live="assertive" class="visually-hidden"></div>
 
