@@ -51,5 +51,9 @@ The application uses strict regular expression validation to ensure data integri
 4. **Data**: Export your data, clear storage using the Diagnostics panel, then import the JSON to verify restoration.
 5. **Responsive**: Resize the browser to verify the transition from Sidebar to Bottom Nav and Mobile Header.
 
+## 📺 Demo Video
+A comprehensive walkthrough of the application's features, including keyboard navigation, regex validation, and responsive design, is available here:
+**[Watch the Demo on YouTube](https://youtu.be/bic9y5hAiFQ)**
+
 ---
 *Built by Imanzi Beni · 2025*

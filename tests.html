@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Tests - Student Finance Tracker</title>
+    <style>
+        :root {
+            --pass: #10b981;
+            --fail: #ef4444;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+        }
+
+        .test-group {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .test-result {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .test-result:last-child {
+            border-bottom: none;
+        }
+
+        .status {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        .status-pass {
+            color: var(--pass);
+        }
+
+        .status-fail {
+            color: var(--fail);
+        }
+
+        .summary {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Hide ARIA live regions for tests */
+        #live-region-polite,
+        #live-region-assertive {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Automated Unit Tests</h1>
+    <div id="test-output"></div>
+    <div id="test-summary" class="summary"></div>
+
+    <!-- Required for ui.js announce function -->
+    <div id="live-region-polite" aria-live="polite"></div>
+    <div id="live-region-assertive" aria-live="assertive"></div>
+    <!-- Required for ui.js announce function form injection -->
+    <form id="transaction-form" style="display:none"></form>
+
+    <script type="module">
+        import { REGEX } from './scripts/state.js';
+        import { validateRecord } from './scripts/validators.js';
+        import { compileRegex } from './scripts/search.js';
+        import { formatCurrency } from './scripts/ui.js';
+
+        const results = [];
+        let passedCount = 0;
+        let failedCount = 0;
+
+        function assert(description, result, expected) {
+            const passed = result === expected;
+            if (passed) passedCount++; else failedCount++;
+            results.push({
+                description,
+                passed,
+                actual: result,
+                expected: expected
+            });
+        }
+
+        function runTests() {
+            // --- Description Regex (No leading/trailing spaces, anchored) ---
+            assert("Description: 'Rent' (Valid)", REGEX.description.test("Rent"), true);
+            assert("Description: '  Rent' (Invalid - Leading)", REGEX.description.test("  Rent"), false);
+            assert("Description: 'Rent  ' (Invalid - Trailing)", REGEX.description.test("Rent  "), false);
+            assert("Description: 'Rent and Food' (Valid - Spaces inside)", REGEX.description.test("Rent and Food"), true);
+            assert("Description: 'Rent  Food' (Should still pass regex, but needs collapse check)", REGEX.description.test("Rent  Food"), true);
+
+            // --- Amount Regex (Positive, max 2 decimals, no leading zeros except 0.x) ---
+            assert("Amount: '12.50' (Valid)", REGEX.amount.test("12.50"), true);
+            assert("Amount: '0.99' (Valid)", REGEX.amount.test("0.99"), true);
+            assert("Amount: '100' (Valid)", REGEX.amount.test("100"), true);
+            assert("Amount: '-5.00' (Invalid - Negative)", REGEX.amount.test("-5.00"), false);
+            assert("Amount: '12.555' (Invalid - 3 Decimals)", REGEX.amount.test("12.555"), false);
+            assert("Amount: '01' (Invalid - Leading Zero)", REGEX.amount.test("01"), false);
+
+            // --- Category Regex (Letters, spaces, hyphens) ---
+            assert("Category: 'Food' (Valid)", REGEX.category.test("Food"), true);
+            assert("Category: 'Health-Care' (Valid)", REGEX.category.test("Health-Care"), true);
+            assert("Category: 'Home Insurance' (Valid)", REGEX.category.test("Home Insurance"), true);
+            assert("Category: '123Category' (Invalid - Numbers)", REGEX.category.test("123Category"), false);
+
+            // --- Date Regex (YYYY-MM-DD) ---
+            assert("Date: '2025-02-20' (Valid)", REGEX.date.test("2025-02-20"), true);
+            assert("Date: '20-02-2025' (Invalid - Format)", REGEX.date.test("20-02-2025"), false);
+            assert("Date: '2025-13-01' (Invalid - Month)", REGEX.date.test("2025-13-01"), false);
+
+            // --- Advanced Regex: Repeated Words (Back-reference) ---
+            assert("Repeated: 'Dinner dinner' (Caught)", REGEX.repeatedWords.test("Dinner dinner"), true);
+            assert("Repeated: 'Delicious Dinner' (Not Caught)", REGEX.repeatedWords.test("Delicious Dinner"), false);
+
+            // --- Logic Functions ---
+            assert("Compiler: Valid '^Food'", compileRegex("^Food") instanceof RegExp, true);
+            assert("Compiler: Invalid '['", compileRegex("[") === null, true);
+            assert("Currency: Format 1000", formatCurrency(1000).includes('RWF'), true);
+
+            renderResults();
+        }
+
+        function renderResults() {
+            const output = document.getElementById('test-output');
+            const summary = document.getElementById('test-summary');
+
+            output.innerHTML = '';
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'test-group';
+
+            results.forEach(res => {
+                const div = document.createElement('div');
+                div.className = 'test-result';
+                div.innerHTML = `
+                    <div style="flex:1">
+                        <strong>${res.description}</strong><br>
+                        <small style="color: #64748b">Expected: ${res.expected}, Actual: ${res.actual}</small>
+                    </div>
+                    <span class="status ${res.passed ? 'status-pass' : 'status-fail'}">${res.passed ? 'Correct' : 'Error'}</span>
+                `;
+                groupDiv.appendChild(div);
+            });
+
+            output.appendChild(groupDiv);
+            summary.textContent = `Overall Score: ${passedCount}/${results.length} Correctly Validated`;
+            summary.style.backgroundColor = failedCount === 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            summary.style.color = failedCount === 0 ? 'var(--pass)' : 'var(--fail)';
+        }
+
+        runTests();
+    </script>
+</body>
+
+</html>

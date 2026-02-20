@@ -273,13 +273,18 @@ function handleFormSubmit(e) {
     e.preventDefault();
     const data = {
         id: Date.now().toString(),
-        amount: document.getElementById('amount-input').value.trim(),
-        description: document.getElementById('desc-input').value.trim(),
-        category: document.getElementById('category-input').value.trim(),
+        amount: document.getElementById('amount-input').value,
+        description: document.getElementById('desc-input').value,
+        category: document.getElementById('category-input').value,
         date: document.getElementById('date-input').value
     };
 
     if (validateRecord(data)) {
+        // Collapse middle spaces before saving as per requirement
+        data.description = data.description.trim().replace(/\s{2,}/g, ' ');
+        data.amount = data.amount.trim();
+        data.category = data.category.trim().replace(/\s{2,}/g, ' ');
+
         if (saveRecord(data)) {
             announce('Success: Record Saved!', 'polite');
             setTimeout(() => { window.location.href = 'records.html'; }, 1000);
