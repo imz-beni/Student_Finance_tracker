@@ -18,7 +18,8 @@
 }
 
 .card-danger-border {
-    border: 1px solid #fee2e2;
+    border: 1px solid var(--color-danger);
+    background-color: var(--color-danger-soft);
 }
 
 .btn {
@@ -125,9 +126,9 @@
     transform: translateX(-50%);
     background: var(--color-main);
     color: white;
-    background-color: var(--text-main);
     padding: 4px 8px;
     border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
     font-size: var(--font-size-xs);
     font-weight: bold;
     animation: fadeIn 0.2s ease;
@@ -296,7 +297,6 @@
 }
 
 .table tr:hover td {
-    transform: scale(1.01);
     box-shadow: var(--shadow-md);
     transition: all var(--transition);
 }
@@ -342,8 +342,8 @@
 }
 
 .btn-icon.text-danger:hover {
-    color: #ef4444;
-    background-color: #fee2e2;
+    color: var(--color-danger);
+    background-color: var(--color-danger-soft);
 }
 
 .icon-32 {
@@ -409,4 +409,17 @@
 .hr-border {
     border: 0;
     border-top: 1px solid var(--color-border);
+}
+
+.search-highlight {
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: var(--font-weight-semibold);
+}
+
+body.dark-theme .search-highlight {
+    background-color: hsla(245, 80%, 60%, 0.3);
+    color: var(--color-primary-soft);
 }

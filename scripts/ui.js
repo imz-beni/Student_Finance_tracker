@@ -24,11 +24,25 @@ export function announce(message, type = 'polite') {
         if (!errorContainer) {
             errorContainer = document.createElement('div');
             errorContainer.id = 'form-error-message';
-            errorContainer.className = 'text-danger text-sm mt-4 p-3 bg-red-50 rounded-lg border border-red-200';
             form.prepend(errorContainer);
         }
+
         errorContainer.textContent = message;
-        errorContainer.className = type === 'assertive' ? 'text-danger text-sm mt-4 p-3 bg-red-50 rounded-lg border border-red-200' : 'text-primary text-sm mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200';
+        errorContainer.style.marginTop = '1rem';
+        errorContainer.style.padding = '0.75rem';
+        errorContainer.style.borderRadius = '0.5rem';
+        errorContainer.style.border = '1px solid';
+        errorContainer.style.fontSize = '0.875rem';
+
+        if (type === 'assertive') {
+            errorContainer.style.backgroundColor = 'var(--color-danger-soft)';
+            errorContainer.style.color = 'var(--color-danger)';
+            errorContainer.style.borderColor = 'var(--color-danger)';
+        } else {
+            errorContainer.style.backgroundColor = 'var(--color-primary-soft)';
+            errorContainer.style.color = 'var(--color-primary)';
+            errorContainer.style.borderColor = 'var(--color-primary)';
+        }
     }
 }
 
